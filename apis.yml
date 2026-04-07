@@ -1,7 +1,12 @@
 aid: greenbrier-cos
-url: https://raw.githubusercontent.com/api-evangelist/greenbrier-cos/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/greenbrier-cos/refs/heads/main/apis.yml
 modified: '2026-03-24'
 apis: []
 common:
   - type: Website
     url: https://www.greenbrier-cos.com
+description: >-
+  The Greenbrier Companies is a leading international supplier of equipment and services
+  to global freight transportation markets, designing, building, and marketing freight
+  railcars in North America, Europe, and South America.
