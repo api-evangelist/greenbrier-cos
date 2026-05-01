@@ -1,11 +1,34 @@
-# Greenbrier Cos.
+# Greenbrier Companies (greenbrier-cos)
 
-This is a repository for tracking the APIs, SDKs, and other developer resources for Greenbrier Cos..
+The Greenbrier Companies is a leading international supplier of equipment and services to global freight transportation markets, designing, building, and marketing freight railcars in North America, Europe, and South America. Greenbrier also offers railcar leasing, repair, and digital fleet management services such as RailPulse.
+
+**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/greenbrier-cos/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
+
+## Tags:
+
+ - Rail, Freight, Transportation, Manufacturing, Leasing
+
+## Timestamps
+
+- **Created:** 2026-03-24
+- **Modified:** 2026-04-28
 
 ## APIs
 
-No APIs have been documented yet. Check back for updates.
+No public APIs have been documented. Greenbrier offers digital products such as RailPulse and a Virtual Sample Railcar but does not publish a developer portal at this time.
 
-## Properties
+## Common Properties
 
-- [Website](https://www.greenbrier-cos.com)
+- [Website](https://www.gbrx.com)
+
+## Maintainers
+
+**FN:** Kin Lane
+
+**Email:** kin@apievangelist.com
