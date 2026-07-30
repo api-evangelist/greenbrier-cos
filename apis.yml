@@ -3,9 +3,20 @@ name: Greenbrier Companies
 description: >-
   The Greenbrier Companies is a leading international supplier of equipment and services to global freight transportation markets, designing, building, and marketing freight railcars in North America, Europe, and South America. Greenbrier also offers railcar leasing, repair, and digital fleet management services such as RailPulse.
 type: Index
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/greenbrier-cos.png
 tags:
   - Rail
   - Freight
