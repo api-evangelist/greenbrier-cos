@@ -1,0 +1,32 @@
+generated: '2026-09-12'
+method: generated
+source: >-
+  openapi/greenbrier-cos-*-openapi.yml. Searched gbrx.com and every Greenbrier product host for
+  provider-published skills, AGENTS.md or agent instructions on 2026-09-12 and found none; these are
+  API Evangelist packaged skills grounded in verified operationIds.
+note: >-
+  Every operationId referenced in these skills exists in the specs in openapi/ and was confirmed
+  against a live response. All four skills are read-only: Greenbrier exposes no public write surface.
+skills:
+  - name: greenbrier-tank-car-gauge-table-lookup
+    file: greenbrier-cos-tank-car-gauge-table-lookup.md
+    api: Greenbrier Tank Car Gauge Table API
+    operations: [listReportingMarks, listValidCarNumbers, getGaugeTable, listGaugeTables, exportGaugeTable]
+    summary: >-
+      Retrieve and read a certified tank-car gauge table, with the two traps that matter - the 200/null
+      miss and the unpaginated range endpoints.
+  - name: greenbrier-railcar-catalog-search
+    file: greenbrier-cos-railcar-catalog-search.md
+    api: Greenbrier Railcar Catalog API
+    operations: [listCargoTypes, listRailcarTypes, listFluidCapacities, listCargoCapacities, listRailcars, getRailcar]
+    summary: Find railcar models by commodity, equipment class or capacity through the four catalog taxonomies.
+  - name: greenbrier-aftermarket-parts-lookup
+    file: greenbrier-cos-aftermarket-parts-lookup.md
+    api: Greenbrier Aftermarket Parts Store API
+    operations: [listStoreProductCategories, listStoreProductAttributes, listStoreProducts, getStoreProduct, getStoreCollectionData]
+    summary: Find a replacement part and read its price, stock and variations without touching cart or checkout.
+  - name: greenbrier-press-room-monitor
+    file: greenbrier-cos-press-room-monitor.md
+    api: Greenbrier Press Room API
+    operations: [listCategories, listPosts, getPost]
+    summary: Poll the press room incrementally with the `after` and `modified_after` watermark pattern.

@@ -1,0 +1,84 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  openapi/greenbrier-cos-*-openapi.yml plus live error responses observed against
+  tankcar.gbrx.com and www.gbrx.com/wp-json on 2026-09-12
+format: vendor-json
+rfc9457: false
+note: >-
+  Neither Greenbrier surface uses RFC 9457 application/problem+json. Two distinct error envelopes
+  are in play and an agent has to handle both. The WordPress/WooCommerce surface returns a
+  serialized WP_Error object with a machine code, a human message and a nested data.status. The
+  tank-car surface returns an ASP.NET Web API message envelope for a routing failure — and, most
+  importantly, DOES NOT return an error at all for an unknown car: it answers HTTP 200 with a JSON
+  null body. That is the single most dangerous error semantic on this estate, because a client that
+  checks only the status code will treat "we hold no gauge table for this car" as success.
+envelopes:
+  - name: WordPress REST error
+    applies_to:
+      - Greenbrier Railcar Catalog API
+      - Greenbrier Aftermarket Parts Store API
+      - Greenbrier Press Room API
+      - Greenbrier Site Content and Discovery API
+    media_type: application/json
+    shape:
+      code: machine-readable error slug
+      message: human-readable sentence
+      data:
+        status: the HTTP status, repeated inside the body
+        params: (on validation failures) the offending parameter names
+  - name: ASP.NET Web API message envelope
+    applies_to:
+      - Greenbrier Tank Car Gauge Table API
+    media_type: application/json
+    shape:
+      message: human-readable sentence naming the request URI
+problem_types:
+  - code: rest_no_route
+    status: 404
+    title: No route was found matching the URL and request method
+    applies_to: WordPress REST surface
+    remediation: Check the namespace and path against https://www.gbrx.com/wp-json/ (the route index).
+    evidence: derived from the WordPress REST error contract; the route index enumerates every valid route.
+  - code: rest_post_invalid_id
+    status: 404
+    title: Invalid post ID
+    applies_to: Railcar Catalog, Press Room, Site Content
+    remediation: Resolve the ID from a collection request before requesting the item.
+  - code: rest_invalid_param
+    status: 400
+    title: Invalid parameter(s)
+    applies_to: WordPress REST surface
+    remediation: >-
+      The response data.params names the parameter. Check the enum and type in the OpenAPI — every
+      one is copied from the server's own route descriptor.
+  - code: rest_forbidden_context
+    status: 401
+    title: Sorry, you are not allowed to edit posts in this post type
+    applies_to: WordPress REST surface
+    remediation: >-
+      Raised when context=edit is requested anonymously. Use context=view or context=embed; the
+      public surface is read-only.
+  - code: woocommerce_rest_product_invalid_id
+    status: 404
+    title: Invalid product ID
+    applies_to: Greenbrier Aftermarket Parts Store API
+    remediation: Resolve the product from /wc/store/v1/products before requesting it by ID.
+  - code: http_no_route
+    status: 404
+    title: No HTTP resource was found that matches the request URI
+    applies_to: Greenbrier Tank Car Gauge Table API
+    remediation: >-
+      Check the route shape, including the literal `-` range separator. Observed verbatim at
+      GET https://tankcar.gbrx.com/api/car/ -> {"message":"No HTTP resource was found that matches
+      the request URI 'http://tankcar.gbrx.com/api/car/'."}
+    evidence: live probe 2026-09-12
+  - code: null-body-on-unknown-car
+    status: 200
+    title: Unknown car answered as success with a null body
+    applies_to: Greenbrier Tank Car Gauge Table API
+    remediation: >-
+      Do not branch on the status code. GET /api/car/ZZZZ/1/gauge-table returned HTTP 200 with the
+      body `null`. Test the parsed body for null before using it; treat null as "no gauge table
+      held". The range endpoints express the same condition as an empty array `[]`.
+    evidence: live probe 2026-09-12

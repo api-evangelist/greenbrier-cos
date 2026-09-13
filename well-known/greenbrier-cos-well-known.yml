@@ -1,0 +1,277 @@
+generated: '2026-09-12'
+method: probed
+source: live anonymous HTTPS GET of the named /.well-known/ paths on every Greenbrier-controlled host
+note: 'Eleven Greenbrier hosts were probed against nine named /.well-known/ paths on 2026-09-12. Exactly one real
+  document is served: the OpenID Connect discovery document at https://shop.gbrx.com/.well-known/openid-configuration.
+  Two hosts (enspire.gbrx.com and my.gbrx.com) answer HTTP 200 with their site shell for every /.well-known/* path
+  and are recorded as misses, not hits. No security.txt, no api-catalog, no agent card and no AAuth resource is
+  served anywhere on the gbrx.com estate.'
+summary:
+  hosts_probed: 11
+  paths_probed_per_host: 9
+  documents_served: 1
+  security_txt: false
+  api_catalog: false
+  agent_card: false
+hosts:
+- host: gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: www.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: tankcar.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: gaugetable.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: shop.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: greenbrier-cos-openid-configuration.json
+    content_type: application/json;charset=UTF-8
+    note: Real JSON OIDC discovery document. shop.gbrx.com is Greenbrier's aftermarket parts store, run on Salesforce
+      Experience Cloud under Greenbrier's own domain; the document is platform-issued but served by Greenbrier and
+      describes how a client authenticates to the Greenbrier store org (issuer https://shop.gbrx.com).
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+  - path: /.well-known/oauth-protected-resource
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+  - path: /.well-known/ai-plugin.json
+    status: 401
+  - path: /.well-known/agent-card.json
+    status: 401
+  - path: /.well-known/agent.json
+    status: 401
+  - path: /.well-known/aauth-resource.json
+    status: 401
+- host: investors.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: pressroom.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: enspire.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/api-catalog
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/agent-card.json
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/agent.json
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+- host: grsecomm.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: proveedores.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: my.gbrx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/api-catalog
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/agent-card.json
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/agent.json
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    note: 200 returning an HTML page, not a document - this host answers every /.well-known/* path with its site
+      shell. Treated as a MISS.

@@ -1,0 +1,108 @@
+generated: '2026-09-12'
+method: probed
+source: >-
+  Live anonymous HTTPS requests against every Greenbrier API surface on 2026-09-12, plus the OIDC
+  discovery document at https://shop.gbrx.com/.well-known/openid-configuration
+note: >-
+  Greenbrier publishes no API authentication documentation because it publishes no developer
+  program. This profile was established by probing: every catalogued API answered a full, correct
+  response to an unauthenticated request, and every gated Greenbrier surface answered 401 or a login
+  form. Nothing here is inferred from prose.
+summary:
+  public_apis_require_credentials: false
+  api_keys_issued: false
+  oauth_for_apis: false
+  signup_required: false
+  rate_limit_on_anonymous_access: not_observed
+apis:
+  - api: Greenbrier Tank Car Gauge Table API
+    host: tankcar.gbrx.com
+    schemes: []
+    model: none
+    evidence: >-
+      GET https://tankcar.gbrx.com/api/car/marks returned 200 application/json with 144 records and
+      no Authorization header, no cookie and no key. Same for the gauge-table, gauge-tables,
+      valid-car-number-list and /export/ routes.
+    write_surface: none
+  - api: Greenbrier Railcar Catalog API
+    host: www.gbrx.com
+    schemes:
+      - type: none
+        applies_to: read (GET)
+      - type: http
+        scheme: basic
+        applies_to: write (POST/PUT/PATCH/DELETE)
+        note: >-
+          WordPress application passwords. Not part of the public surface, not documented by
+          Greenbrier, and not exercised by this profile.
+    model: anonymous-read
+    evidence: >-
+      GET https://www.gbrx.com/wp-json/wp/v2/railcars?per_page=1 returned 200 with X-WP-Total 85 and
+      no credentials. The route index lists POST/PUT/PATCH/DELETE on the same routes; those require
+      WordPress authentication.
+    write_surface: credentialed-only
+  - api: Greenbrier Aftermarket Parts Store API
+    host: www.gbrx.com
+    schemes:
+      - type: none
+        applies_to: product/category/attribute reads
+      - type: cookie
+        name: Nonce / cart token
+        applies_to: cart and checkout routes
+        note: >-
+          The /wc/store/v1/cart and /wc/store/v1/checkout routes are session-scoped and require a
+          WooCommerce Store API nonce. Those routes are deliberately excluded from the catalogued
+          contract.
+    model: anonymous-read
+    evidence: >-
+      GET https://www.gbrx.com/wp-json/wc/store/v1/products?per_page=1 returned 200 with X-WP-Total
+      207 and no credentials.
+    write_surface: session-scoped
+  - api: Greenbrier Press Room API
+    host: www.gbrx.com
+    schemes:
+      - type: none
+        applies_to: read (GET)
+    model: anonymous-read
+    evidence: GET /wp-json/wp/v2/posts?per_page=1 returned 200 with X-WP-Total 245 and no credentials.
+    write_surface: credentialed-only
+  - api: Greenbrier Site Content and Discovery API
+    host: www.gbrx.com
+    schemes:
+      - type: none
+        applies_to: read (GET)
+    model: anonymous-read
+    evidence: GET /wp-json/wp/v2/pages?per_page=1 returned 200 with X-WP-Total 51 and no credentials.
+    write_surface: credentialed-only
+gated_surfaces:
+  - host: shop.gbrx.com
+    product: Greenbrier Aftermarket Parts store (Salesforce Experience Cloud)
+    model: oauth2 / openid-connect
+    discovery: https://shop.gbrx.com/.well-known/openid-configuration
+    issuer: https://shop.gbrx.com
+    authorization_endpoint: https://shop.gbrx.com/services/oauth2/authorize
+    token_endpoint: https://shop.gbrx.com/services/oauth2/token
+    jwks_uri: https://shop.gbrx.com/id/keys
+    grant_types: [authorization_code, refresh_token]
+    pkce: S256
+    evidence: >-
+      The discovery document is served anonymously (200). Every data route under it answered 401
+      INVALID_SESSION_ID. The scopes advertised are Salesforce's standard platform scope list, not a
+      Greenbrier-authored scope vocabulary, so no scopes/ artifact is emitted.
+    note: >-
+      Salesforce Experience Cloud running on a Greenbrier-controlled host. Greenbrier does not
+      document or issue API credentials against it; it backs a human parts-ordering storefront.
+  - host: enspire.gbrx.com
+    product: GMS Partners / Enspire railcar management software
+    model: form-login
+    evidence: >-
+      https://enspire.gbrx.com/ serves an ASP.NET MVC login form. Every /.well-known/* path answers
+      200 with the same login shell. No API surface is reachable anonymously.
+  - host: grsecomm.gbrx.com
+    product: GRS Wheelsets ordering portal
+    model: form-login
+    evidence: https://grsecomm.gbrx.com/ serves an ASP.NET login form; /.well-known/* paths 404.
+  - host: proveedores.gbrx.com
+    product: Greenbrier GIMSA supplier application (Monclova, Mexico)
+    model: form-login
+    evidence: https://proveedores.gbrx.com/ serves a login form; /.well-known/* paths 404.

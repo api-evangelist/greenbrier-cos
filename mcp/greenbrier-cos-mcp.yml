@@ -1,0 +1,106 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  openapi/greenbrier-cos-*-openapi.yml. Searched for a first-party Greenbrier MCP server on
+  2026-09-12 - gbrx.com, every product host, npm and PyPI - and found none.
+status: candidate
+note: >-
+  Greenbrier ships no MCP server, hosted or local. This is a CANDIDATE tool list derived from the
+  operations Greenbrier actually serves, offered as a design, not as something an agent can call
+  today. No endpoint is asserted because none exists; inventing one would read as a verified agent
+  surface and there is nothing to verify. Every tool below maps 1:1 onto a real, anonymously
+  callable operation in the specs in openapi/, so this list is implementable by anyone without
+  Greenbrier's involvement.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: derived
+discovery_probes:
+  - url: https://www.gbrx.com/.well-known/mcp.json
+    status: 404
+  - url: https://tankcar.gbrx.com/.well-known/mcp.json
+    status: 404
+  - query: npm search "greenbrier" / "gbrx"
+    status: 0 results
+tools:
+  - name: list_reporting_marks
+    description: List every railcar reporting mark for which Greenbrier holds a certified gauge table.
+    rest: listReportingMarks
+    api: Greenbrier Tank Car Gauge Table API
+    read_only: true
+  - name: get_gauge_table
+    description: >-
+      Get the certified gauge table for one tank car - tare weight, shell full capacity,
+      certification date and the innage/outage capacity curve.
+    rest: getGaugeTable
+    api: Greenbrier Tank Car Gauge Table API
+    read_only: true
+    caution: Answers HTTP 200 with a null body when the car is not held; test the body, not the status.
+  - name: list_gauge_tables
+    description: Get gauge tables for a contiguous car-number range under one reporting mark.
+    rest: listGaugeTables
+    api: Greenbrier Tank Car Gauge Table API
+    read_only: true
+    caution: Unpaginated. Bound the range; a wide range returns a very large body.
+  - name: list_valid_car_numbers
+    description: List the car numbers in a range for which Greenbrier actually holds a gauge table.
+    rest: listValidCarNumbers
+    api: Greenbrier Tank Car Gauge Table API
+    read_only: true
+  - name: export_gauge_table
+    description: Render a gauge table range as Pdf, Csv or Txt, in gallons or liters, innage or outage.
+    rest: exportGaugeTable
+    api: Greenbrier Tank Car Gauge Table API
+    read_only: true
+  - name: search_railcars
+    description: Search and filter the Greenbrier railcar catalog by railcar type, cargo type, fluid capacity and cargo capacity.
+    rest: listRailcars
+    api: Greenbrier Railcar Catalog API
+    read_only: true
+  - name: get_railcar
+    description: Get one Greenbrier railcar model by ID.
+    rest: getRailcar
+    api: Greenbrier Railcar Catalog API
+    read_only: true
+  - name: list_railcar_types
+    description: List the railcar equipment classes Greenbrier builds.
+    rest: listRailcarTypes
+    api: Greenbrier Railcar Catalog API
+    read_only: true
+  - name: list_cargo_types
+    description: List the commodities Greenbrier railcars are built to haul.
+    rest: listCargoTypes
+    api: Greenbrier Railcar Catalog API
+    read_only: true
+  - name: search_parts
+    description: Search the Greenbrier aftermarket parts catalog by category, attribute, SKU or keyword.
+    rest: listStoreProducts
+    api: Greenbrier Aftermarket Parts Store API
+    read_only: true
+  - name: get_part
+    description: Get one aftermarket part with price, stock, dimensions and variations.
+    rest: getStoreProduct
+    api: Greenbrier Aftermarket Parts Store API
+    read_only: true
+  - name: list_part_categories
+    description: List the parts category tree.
+    rest: listStoreProductCategories
+    api: Greenbrier Aftermarket Parts Store API
+    read_only: true
+  - name: search_press_room
+    description: Search Greenbrier press releases and Perspectives & Updates articles by date, category, tag or keyword.
+    rest: listPosts
+    api: Greenbrier Press Room API
+    read_only: true
+  - name: search_site
+    description: Cross-content search over Greenbrier posts, pages and railcars.
+    rest: search
+    api: Greenbrier Site Content and Discovery API
+    read_only: true
+coverage:
+  tools: 14
+  rest_operations_bound: 14
+  write_tools: 0

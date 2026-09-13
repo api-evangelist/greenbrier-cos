@@ -1,0 +1,37 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Greenbrier Site Content and Discovery API
+  version: 1.0.0
+  description: 'Records the enhancements API Evangelist applied on top of the derived contract for Greenbrier Site
+    Content and Discovery API. The base document itself is left untouched. Provenance: Derived from the live WordPress
+    route-index document at https://www.gbrx.com/wp-json/; no Greenbrier-published spec exists.'
+extends: openapi/greenbrier-cos-site-content-api-openapi.yml
+actions:
+- target: $.info
+  description: Stamp third-party provenance on the contract.
+  update:
+    x-api-evangelist-profile: https://apis.io/provider/greenbrier-cos
+    x-api-evangelist-provenance: Derived from the live WordPress route-index document at https://www.gbrx.com/wp-json/;
+      no Greenbrier-published spec exists.
+    x-first-party-spec: false
+    x-verified-on: '2026-09-12'
+- target: $
+  description: Record the estate-level facts a consumer needs before calling.
+  update:
+    x-authentication: none - every catalogued operation answers an anonymous GET
+    x-rate-limits: none published, none signalled at runtime
+    x-support-channel: https://www.gbrx.com/contact-us/ (corporate contact form; no API support channel exists)
+    x-status-page: null
+    x-changelog: null
+- target: $.paths.*.get
+  description: Mark every catalogued operation as safe and repeatable - the public surface is read-only.
+  update:
+    x-safe: true
+    x-idempotent: true
+    x-consequence: read-only
+- target: $.paths.*.get
+  description: Record the sparse-fieldset and embedding parameters the WordPress surface supports but does not enumerate
+    per-route, and which materially cut payload size.
+  update:
+    x-supports-fields-param: _fields
+    x-supports-embed-param: _embed

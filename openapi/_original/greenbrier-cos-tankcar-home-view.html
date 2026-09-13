@@ -1,0 +1,182 @@
+﻿<div>
+  <div class="container">
+    <div class="row well">
+      <small>
+        <strong>DISCLAIMER:</strong> GAUGE TABLES ARE PROVIDED AS A CONVENIENCE TO GREENBRIER’S CUSTOMERS AND WHILE WE MAKE EVERY REASONABLE EFFORT TO ENSURE THE INFORMATION IS ACCURATE, WE MAKE NO REPRESENTATIONS OR WARRANTIES AS TO THE ACCURACY, RELIABILITY OR COMPLETENESS OF THE INFORMATION.  YOUR USE OF THE GREENBRIER WEBSITE AND THE INFORMATION PROVIDED IN THE GAUGE TABLES WILL CONSTITUTE YOUR ACCEPTANCE OF THE DISCLAIMERS OF WARRANTIES AND LIABILITIES, AND THE OTHER TERMS, SET FORTH IN THE “WEBSITE TERMS OF USE AND LEGAL RESTRICTIONS” FOUND UNDER THE “LEGAL” TAB ON THE GREENBRIER WEBSITE.
+      </small>
+    </div>
+    <div id="overlappingCarMarkWarning" class="row alert alert-warning" role="alert" ng-if="isOverlappingCarMark(selection.carMark)">
+        
+    </div>
+    <form name="carQueryForm" class="row">
+      <div class="form-group col-md-2">
+        <label>Car Mark:</label><br />
+        <select name="carMark" class="form-control" ng-change="clearSearch(data, selection)" required ng-options="item for item in data.carMarks" ng-model="selection.carMark"></select>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Car Number (Start):</label><br />
+        <input name="carNumberStart" class="form-control" type="number" required placeholder="ex. 300000" ng-model="selection.carNumberStart">
+      </div>
+      <div class="form-group col-md-4">
+        <label>Car Number (End):</label><br />
+        <input name="carNumberEnd" class="form-control" type="number" placeholder="ex. 300010" ng-model="selection.carNumberEnd">
+      </div>
+      <div class="form-group col-md-2">
+        <label>&nbsp;</label><br />
+        <button class="btn btn-default form-control" ng-click="submitQuery()" ng-disabled="!carQueryForm.$valid">SUBMIT</button>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-md-12">
+        <p class="text-center">
+          <em>Car Number (End) is optional. Leaving this blank will result in data for one car.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" ng-if="data.isSearch">
+    <div ng-if="data.carNumberList.length &gt; 0">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <a href="javascript:void(0)" ng-click="toggleExportOptions()">
+              {{ exportOptionsLabel() }} Export Options
+            </a>
+          </div>
+        </div>
+        <form name="exportForm" class="row" ng-if="selection.exportOptions">
+          <div class="form-group col-md-3">
+            <label>Capacity:</label><br />
+            <input type="radio" required name="capacityType" value="Innage" ng-model="selection.capacityType" /> Innage<br />
+            <input type="radio" required name="capacityType" value="Outage" ng-model="selection.capacityType" /> Outage<br />
+          </div>
+          <div class="form-group col-md-3">
+            <label>File Type:</label><br />
+            <input type="radio" required name="fileType" value="Pdf" ng-model="selection.fileType" /> PDF<br />
+            <input type="radio" required name="fileType" value="Csv" ng-model="selection.fileType" /> CSV<br />
+            <input type="radio" required name="fileType" value="Txt" ng-model="selection.fileType" /> Text<br />
+          </div>
+          <div class="form-group col-md-3">
+            <label>Unit:</label><br />
+            <input type="radio" required name="unitType" value="Gallons" ng-model="selection.unitType" /> Gallons<br />
+            <input type="radio" required name="unitType" value="Liters" ng-model="selection.unitType" /> Liters<br />
+          </div>
+          <div class="col-md-2">
+            <label>&nbsp;</label><br />
+            <a ng-href="{{ getExportLink(exportForm) }}" class="btn btn-default form-control" ng-disabled="!exportForm.$valid">
+              DOWNLOAD
+            </a>
+          </div>
+        </form>
+      </div>
+
+      <div class="row">
+        <hr />
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="scrollmenu">
+            <a href="javascript:void(0)"
+               ng-repeat="carNumber in data.carNumberList"
+               ng-class="{ selected: carNumber.number == selection.carNumberSelected }"
+               ng-click="loadGaugeTableFor(carNumber.number)">{{ selection.carMark }} {{ carNumber.carNumberForDisplay }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <hr />
+    </div>
+
+    <div ng-if="!data.stillSearching">
+      <div class="row" ng-if="!data.gaugeTable">
+        <div class="col-md-12">
+          <div class="alert alert-warning" role="alert">
+            We could not find any data associated with the car number(s) you provided.
+            This generally means that the tank car(s) in question were not built by Greenbrier.
+            Please check with the appropriate tank car builder or try again with a different set of search criteria.
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="data.gaugeTable">
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+            <p>
+              Innage/Outage Data for <strong>{{ data.gaugeTable.carNumber }}</strong>
+            </p>
+          </div>
+          <div class="col-md-5">
+            <p class="text-right">
+              Tare Weight: {{ data.gaugeTable.tareWeight }}
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Distance (in)</th>
+                  <th>Innage (gal)</th>
+                  <th>Outage (gal)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in getModData(data.gaugeTable.capacities, 0, 3)">
+                  <td>{{ item.height | number:2 }}</td>
+                  <td>{{ item.innage | number:0 }}</td>
+                  <td>{{ item.outage | number:0 }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Distance (in)</th>
+                  <th>Innage (gal)</th>
+                  <th>Outage (gal)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in getModData(data.gaugeTable.capacities, 1, 3)">
+                  <td>{{ item.height | number:2 }}</td>
+                  <td>{{ item.innage | number:0 }}</td>
+                  <td>{{ item.outage | number:0 }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Distance (in)</th>
+                  <th>Innage (gal)</th>
+                  <th>Outage (gal)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in getModData(data.gaugeTable.capacities, 2, 3)">
+                  <td>{{ item.height | number:2 }}</td>
+                  <td>{{ item.innage | number:0 }}</td>
+                  <td>{{ item.outage | number:0 }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

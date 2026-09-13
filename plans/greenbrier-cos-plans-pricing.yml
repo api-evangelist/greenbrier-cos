@@ -1,0 +1,25 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  Searched www.gbrx.com (including the full 51-page site map read from the live pages API), the My
+  GBRX hub and every product host for API pricing, plans, quotas or a signup path on 2026-09-12.
+plan_count: 0
+note: >-
+  Greenbrier sells no API and publishes no API plans, quotas or metering of any kind. All five
+  catalogued APIs are free, keyless and unmetered as served. This is not a "contact us" enterprise
+  gate - there is no sales path to an API at all, because Greenbrier does not present these surfaces
+  as products. Recording plan_count 0 is the honest measurement.
+plans: []
+adjacent_commerce:
+  - name: Greenbrier Aftermarket Parts store
+    url: https://shop.gbrx.com/s/
+    detail: >-
+      Greenbrier does sell physical parts online, and the product prices are public through the
+      WooCommerce Store API on www.gbrx.com (a sample product, SKU 1023003, returned a USD price
+      object of "100" with currency_minor_unit 2 on 2026-09-12). That is product pricing, not API
+      pricing.
+  - name: Enspire / GMS Partners railcar management software
+    url: http://enspire.gbrx.com/
+    detail: >-
+      A commercial railcar management product behind a login. No pricing is published and no API is
+      documented for it.

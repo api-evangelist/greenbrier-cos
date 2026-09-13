@@ -1,0 +1,55 @@
+# The Greenbrier Companies (gbrx.com)
+
+> Greenbrier is an international supplier of equipment and services to freight transportation
+> markets — it designs, builds, leases and maintains freight railcars in North America, Europe and
+> South America, and builds marine barges in Portland, Oregon. Greenbrier publishes no developer
+> program, no API portal, no SDK and no API pricing. It does operate five real, anonymously
+> callable HTTP surfaces on its own hosts, catalogued below by API Evangelist. Probed and verified
+> 2026-09-12.
+
+## What is actually callable
+
+- [Tank Car Gauge Table API](https://tankcar.gbrx.com/api/car/marks): Bespoke first-party JSON API. Given an AAR reporting mark and car number it returns the car's certified gauge table — tare weight, shell full capacity, certification date, and the innage/outage capacity curve in quarter-inch increments. 144 reporting marks served; 20,049 car numbers held under GBRX alone. No key, no signup, no version, no rate limit.
+- [Railcar Catalog API](https://www.gbrx.com/wp-json/wp/v2/railcars): 85 published railcar models with four purpose-built taxonomies — railcar type (18 terms), cargo type (66 terms), fluid capacity, cargo capacity. The product catalog of a railcar manufacturer, addressable over HTTP.
+- [Aftermarket Parts Store API](https://www.gbrx.com/wp-json/wc/store/v1/products): 207 replacement parts across 140 categories and 33 attribute vocabularies, with SKU, price, stock availability, dimensions and variations. WooCommerce Store API; read routes only — cart and checkout are session-scoped.
+- [Press Room API](https://www.gbrx.com/wp-json/wp/v2/posts): 245 published posts — earnings announcements, order-book news, facility and product announcements.
+- [Site Content and Discovery API](https://www.gbrx.com/wp-json/wp/v2/search): 51 pages plus cross-content search over 191 objects, and an oEmbed 1.0 endpoint.
+
+## Machine-readable contracts
+
+- [Route index (verbatim, first-party)](https://www.gbrx.com/wp-json/): the WordPress REST discovery document — 836 routes across 27 namespaces. This is Greenbrier's own self-describing contract for four of the five APIs.
+- Greenbrier publishes no OpenAPI. API Evangelist derived five OpenAPI 3.1.0 documents from the route index above and from the provider's own shipped AngularJS client for the gauge-table service, then confirmed every route against a live response. They live in `openapi/` in this repository.
+
+## How to call it
+
+- Authentication: none. Every catalogued operation answers a plain anonymous GET.
+- Pagination (WordPress surface): `page` and `per_page` (max 100), with `X-WP-Total` and `X-WP-TotalPages` response headers and an RFC 5988 `Link` header.
+- Trimming (WordPress surface): `_fields=id,link,title` — worth using, the default railcar and post payloads embed fully rendered HTML.
+- Pagination (gauge-table surface): none at all. Bound your car-number range client-side.
+- Errors: not RFC 9457. Two envelopes — a WordPress `WP_Error` object, and an ASP.NET `{"message": ...}`.
+- The trap: the gauge-table API answers **HTTP 200 with a JSON `null` body** for a car it does not hold. Test the parsed body, never the status code. The range endpoints express the same condition as `[]`.
+
+## What does not exist
+
+- No developer portal, no API reference, no getting-started guide, no changelog, no status page, no SLA, no deprecation policy, no sandbox, no CLI, no SDK in any registry, no GitHub organization, no Postman collection.
+- No MCP server and no A2A agent card. `mcp/greenbrier-cos-mcp.yml` in this repository is a derived candidate tool list, not something Greenbrier serves.
+- No webhooks and no event/streaming surface.
+- No `security.txt`, no `api-catalog`, no bug bounty and no trust center. Eleven Greenbrier hosts were probed against nine `/.well-known/` paths; exactly one real document is served, an OpenID Connect discovery document at `https://shop.gbrx.com/.well-known/openid-configuration` fronting the human parts storefront.
+
+## Company
+
+- [Greenbrier website](https://www.gbrx.com)
+- [Press Room](https://www.gbrx.com/press-room/)
+- [Investor Relations](https://investors.gbrx.com/)
+- [Certifications](https://www.gbrx.com/certifications/): AAR M-1003 (20 facilities), AAR M-1002 tank car facility certification (7 locations), ISO 9001:2015, ISO 14001:2015, ISO 45001:2018, TSI Module SD. No SOC 2 and no ISO 27001 is claimed.
+- [AAR component approvals](https://www.gbrx.com/aar-approvals/): 15 numbered approvals for tank-car valves and relief devices.
+- [Legal & Terms of Use](https://www.gbrx.com/legal/) · [Privacy Policy](https://www.gbrx.com/privacy-policy/) · [Contact Us](https://www.gbrx.com/contact-us/)
+
+## Related but NOT Greenbrier's API
+
+- RailPulse is a separate joint venture (RailPulse LLC) whose members include GATX, Norfolk Southern, Union Pacific, CSX, TrinityRail, Watco, CPKC, Genesee & Wyoming, Bunge, RDC and Greenbrier. Any RailPulse telematics API belongs to RailPulse, not to Greenbrier, and is not catalogued here.
+- `shop.gbrx.com` runs on Salesforce Experience Cloud. Its `/services/data/` surface is the Salesforce platform API, auth-gated (401), and is not a Greenbrier API product.
+
+---
+Third-party profile maintained by API Evangelist (https://apievangelist.com). This is not Greenbrier's
+API and API Evangelist does not operate it. Generated 2026-09-12 from public surfaces only.

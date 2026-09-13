@@ -1,0 +1,36 @@
+generated: '2026-09-12'
+method: probed
+source: >-
+  Live anonymous responses from https://www.gbrx.com/wp-json/ and https://tankcar.gbrx.com/api/
+  inspected for rate-limit headers on 2026-09-12; gbrx.com searched for a published limits policy.
+limit_count: 0
+note: >-
+  Greenbrier publishes no rate limits and signals none at runtime. This is a zero measured on the
+  wire, not a gap in our reading: every response header set was captured and none carried
+  X-RateLimit-*, RateLimit-*, Retry-After or any vendor equivalent. An agent calling these APIs has
+  no runtime signal of how much headroom it has and no documented budget to plan against, which is a
+  real risk on the tank-car surface where a single wide-range request returned 982 KB.
+published_limits: []
+runtime_signalling:
+  headers_observed: []
+  retry_after: false
+  exhaustion_status: not_observed
+  detail: >-
+    Observed header sets: www.gbrx.com/wp-json returns Vary, X-Robots-Tag, X-Content-Type-Options,
+    Access-Control-Expose-Headers, X-WP-Total, X-WP-TotalPages, Link, Allow, X-Frame-Options,
+    X-XSS-Protection, Strict-Transport-Security and Content-Security-Policy - no rate-limit header.
+    tankcar.gbrx.com returns Cache-Control, Pragma, Expires, Server, X-AspNet-Version, X-Powered-By,
+    X-Frame-Options, X-Xss-Protection, X-Content-Type-Options and Strict-Transport-Security - no
+    rate-limit header.
+protection_observed:
+  - host: www.gbrx.com
+    detail: >-
+      Wordfence is installed (the route index exposes the wordfence/v1 and
+      wordfence-login-security/v1 namespaces), so an undocumented WAF-level throttle almost
+      certainly exists. No threshold is published and none was triggered during this profile.
+  - host: shop.gbrx.com
+    detail: Salesforce platform limits apply behind the login; not applicable to any catalogued API.
+practical_guidance:
+  - Bound every tank-car range request client-side; the range endpoints have no server-side page size.
+  - Use _fields on the WordPress surface to cut payloads rather than issuing more requests.
+  - Assume a WAF is present and back off on any 403 or connection reset, since no Retry-After will be sent.

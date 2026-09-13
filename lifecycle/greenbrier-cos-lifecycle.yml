@@ -1,0 +1,75 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  Searched gbrx.com and every Greenbrier product host for a status page, changelog, versioning
+  policy, deprecation policy and SLA on 2026-09-12; derived the versioning facts from the live
+  contracts.
+note: >-
+  This is an honest set of absences. Greenbrier operates real public APIs without any of the
+  operational scaffolding an API program normally carries, because it does not consider them an API
+  program. A consumer of the gauge-table API in particular is depending on an unversioned,
+  unannounced, unmonitored endpoint.
+status_page:
+  published: false
+  url: null
+  evidence: >-
+    No status.gbrx.com and no status page linked from www.gbrx.com, tankcar.gbrx.com or the My GBRX
+    hub. Probed 2026-09-12.
+changelog:
+  published: false
+  url: null
+  evidence: >-
+    No dated API changelog anywhere on the estate. The nearest dated artifact is the press room
+    (245 posts) and the Informational Bulletins page, neither of which covers the API surfaces.
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  evidence: >-
+    No RFC 8594 Sunset or Deprecation header was returned by any observed response on
+    www.gbrx.com/wp-json or tankcar.gbrx.com, and no policy page exists.
+sla:
+  published: false
+  evidence: No SLA, uptime commitment or support tier is published for any API surface.
+terms:
+  published: true
+  url: https://www.gbrx.com/legal/
+  note: >-
+    Corporate website Terms of Use. It governs use of the site; there is no separate API terms
+    document and no published API acceptable-use policy.
+versioning:
+  - api: Greenbrier Railcar Catalog API
+    scheme: path-namespace
+    current: wp/v2
+    stability: >-
+      The namespace is stable and the route index at https://www.gbrx.com/wp-json/ is authoritative.
+      The `railcars` post type and its taxonomies are site-specific and could be renamed by a theme
+      change without notice.
+  - api: Greenbrier Aftermarket Parts Store API
+    scheme: path-namespace
+    current: wc/store/v1
+    stability: Versioned by the WooCommerce Store API contract; wc/store/v1 and wc/v2/v3 are served side by side.
+  - api: Greenbrier Press Room API
+    scheme: path-namespace
+    current: wp/v2
+  - api: Greenbrier Site Content and Discovery API
+    scheme: path-namespace
+    current: wp/v2 (+ oembed/1.0)
+  - api: Greenbrier Tank Car Gauge Table API
+    scheme: none
+    current: unversioned
+    stability: >-
+      No version segment, no version header, no announced release. The AngularJS client that calls
+      it pins jQuery 1.12.4 and AngularJS 1.5.6, and the gauge table returned for GBRX 700000 is
+      dated 2012-03-22 - this is a long-lived, low-change service, but its stability is a fact about
+      its neglect rather than a commitment.
+deprecated_operations: []
+observed_decay:
+  - detail: >-
+      The gauge-table front end loads https://cdn.polyfill.io/v1/polyfill.min.js. The polyfill.io
+      domain was sold and began serving malicious payloads in 2024 and has since been sinkholed by
+      Namecheap/Cloudflare. This is a browser-side supply-chain reference on a live Greenbrier
+      public host, not an API defect, but it is the clearest dating signal on the surface.
+      Observed in the page source at https://tankcar.gbrx.com/ on 2026-09-12.
+  - detail: >-
+      grsecomm.gbrx.com serves jQuery 1.7.2 (released 2012) and jQuery UI 1.10.0 on its login page.

@@ -1,0 +1,178 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  openapi/greenbrier-cos-*-openapi.yml (components.schemas + the id-reference fields observed in
+  live responses on 2026-09-12)
+note: >-
+  Two disjoint data cores sit under the Greenbrier estate. The www.gbrx.com core is a WordPress
+  content graph whose Greenbrier-specific shape is the `railcars` entity and its four purpose-built
+  taxonomies - that is the entity graph of a railcar manufacturer's product catalog. The
+  tankcar.gbrx.com core is a flat, two-level engineering record with no relationships to anything
+  else Greenbrier serves. Nothing joins them: a railcar in the catalog carries no reporting mark,
+  and a gauge table carries no product reference.
+entities:
+  - name: Railcar
+    api: Greenbrier Railcar Catalog API
+    schema: Railcar
+    identifier: id (integer), slug (string)
+    count_observed: 85
+    description: A Greenbrier railcar model - covered hopper, tank car, gondola, boxcar, flatcar, intermodal or auto carrier.
+    key_fields: [id, slug, title, content, excerpt, featured_media, menu_order, acf, link, status, date, modified]
+  - name: RailcarType
+    api: Greenbrier Railcar Catalog API
+    schema: TaxonomyTerm
+    identifier: id (integer), slug (string)
+    count_observed: 18
+    description: Equipment class vocabulary - agricultural covered hopper, pressure tank car, mill gondola and siblings.
+  - name: CargoType
+    api: Greenbrier Railcar Catalog API
+    schema: TaxonomyTerm
+    identifier: id (integer), slug (string)
+    count_observed: 66
+    description: Commodity vocabulary - aggregate, ethanol, grain, plastic pellets and siblings.
+  - name: FluidCapacity
+    api: Greenbrier Railcar Catalog API
+    schema: TaxonomyTerm
+    description: Tank-car volume band vocabulary.
+  - name: CargoCapacity
+    api: Greenbrier Railcar Catalog API
+    schema: TaxonomyTerm
+    description: Load-capacity band vocabulary.
+  - name: StoreProduct
+    api: Greenbrier Aftermarket Parts Store API
+    schema: StoreProduct
+    identifier: id (integer), sku (string), slug (string)
+    count_observed: 207
+    description: An aftermarket replacement part, variable or simple, with a price object and stock availability.
+    key_fields: [id, sku, name, slug, type, variation, parent, prices, is_in_stock, attributes, categories, variations, dimensions, weight]
+  - name: StoreProductCategory
+    api: Greenbrier Aftermarket Parts Store API
+    schema: StoreProductCategory
+    identifier: id (integer), slug (string)
+    count_observed: 140
+    description: A node in the parts category tree; self-referential through `parent`.
+  - name: StoreProductAttribute
+    api: Greenbrier Aftermarket Parts Store API
+    schema: StoreProductAttribute
+    count_observed: 33
+    description: A global attribute vocabulary - dimensions, material, nominal thickness, o-ring, PSI, steam connections, thickness, weight.
+  - name: Post
+    api: Greenbrier Press Room API
+    schema: Post
+    identifier: id (integer), slug (string)
+    count_observed: 245
+    description: A press release or Perspectives & Updates article.
+  - name: Category
+    api: Greenbrier Press Room API
+    schema: TaxonomyTerm
+    count_observed: 3
+    description: Post category; self-referential through `parent`.
+  - name: Tag
+    api: Greenbrier Press Room API
+    schema: TaxonomyTerm
+    count_observed: 14
+  - name: Page
+    api: Greenbrier Site Content and Discovery API
+    schema: Page
+    count_observed: 51
+    description: A static site page; self-referential through `parent`, ordered by `menu_order`.
+  - name: SearchResult
+    api: Greenbrier Site Content and Discovery API
+    schema: SearchResult
+    count_observed: 191
+    description: A lightweight pointer record (id, title, url, type, subtype) into posts, pages or railcars.
+  - name: GaugeTable
+    api: Greenbrier Tank Car Gauge Table API
+    schema: GaugeTable
+    identifier: carNumber (string, "MARK NUMBER")
+    description: A certified tank-car gauge table - tare weight, shell full capacity, certification date and the capacity curve.
+  - name: Capacity
+    api: Greenbrier Tank Car Gauge Table API
+    schema: Capacity
+    description: One point on a gauge table's capacity curve - height in inches, innage and outage volumes.
+  - name: CarNumber
+    api: Greenbrier Tank Car Gauge Table API
+    schema: CarNumber
+    description: A car number for which a gauge table is held.
+relationships:
+  - from: Railcar
+    to: RailcarType
+    type: has_many
+    via: railcar_type (array of term IDs)
+  - from: Railcar
+    to: CargoType
+    type: has_many
+    via: cargo_type (array of term IDs)
+  - from: Railcar
+    to: FluidCapacity
+    type: has_many
+    via: fluid_capacity (array of term IDs)
+  - from: Railcar
+    to: CargoCapacity
+    type: has_many
+    via: cargo_capacity (array of term IDs)
+  - from: Railcar
+    to: Media
+    type: has_one
+    via: featured_media (attachment ID)
+  - from: StoreProduct
+    to: StoreProductCategory
+    type: has_many
+    via: categories[] (embedded {id, name, slug, link})
+  - from: StoreProduct
+    to: StoreProductAttribute
+    type: has_many
+    via: attributes[] (embedded attribute + terms)
+  - from: StoreProduct
+    to: StoreProduct
+    type: has_many
+    via: variations[] (child variation IDs); children point back through `parent`
+  - from: StoreProductCategory
+    to: StoreProductCategory
+    type: belongs_to
+    via: parent (category ID, 0 at the root)
+  - from: Post
+    to: Category
+    type: has_many
+    via: categories (array of term IDs)
+  - from: Post
+    to: Tag
+    type: has_many
+    via: tags (array of term IDs)
+  - from: Post
+    to: Media
+    type: has_one
+    via: featured_media (attachment ID)
+  - from: Page
+    to: Page
+    type: belongs_to
+    via: parent (page ID, 0 at the root)
+  - from: SearchResult
+    to: Post
+    type: has_one
+    via: id + subtype (post | page | railcars)
+  - from: GaugeTable
+    to: Capacity
+    type: has_many
+    via: capacities[] (embedded, not referenced)
+  - from: CarNumber
+    to: GaugeTable
+    type: has_one
+    via: number, resolved through /api/car/{mark}/{number}/gauge-table
+disconnects:
+  - detail: >-
+      There is no join between the railcar catalog and the gauge-table service. A Railcar record
+      carries no reporting mark and no car number; a GaugeTable carries no product or model
+      reference. A client that wants "the gauge table for this Greenbrier tank car model" cannot get
+      there from either API.
+  - detail: >-
+      The aftermarket parts catalog carries no reference to the railcar models a part fits. Fitment
+      lives only in the human-readable product description and the attribute vocabularies.
+id_conventions:
+  - surface: WordPress / WooCommerce REST
+    detail: Opaque incrementing integers, site-scoped. Slugs are stable, human-readable secondary keys.
+  - surface: Greenbrier Tank Car Gauge Table API
+    detail: >-
+      The natural key is the AAR reporting mark plus the car number - an industry identifier, not a
+      Greenbrier one. `carNumber` on the response is the two joined with a space ("GBRX 700000")
+      while the request takes them as separate path segments.

@@ -1,0 +1,126 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  openapi/greenbrier-cos-*-openapi.yml, the live route index at https://www.gbrx.com/wp-json/, and
+  live response headers observed on www.gbrx.com and tankcar.gbrx.com on 2026-09-12
+note: >-
+  Greenbrier publishes no API conventions document. Everything below was read off the wire. Two
+  unrelated conventions regimes coexist on this estate: the WordPress/WooCommerce REST surface,
+  which follows the well-known WP REST conventions, and the bespoke tank-car surface, which follows
+  none of them.
+auth_style:
+  summary: No credentials on any catalogued surface.
+  detail: >-
+    All five catalogued APIs answer fully to an anonymous GET. See
+    authentication/greenbrier-cos-authentication.yml.
+pagination:
+  - surface: WordPress / WooCommerce REST
+    style: page-number
+    params:
+      page: 1-based page index, default 1
+      per_page: page size, default 10, maximum 100
+      offset: alternative absolute offset
+    response_headers:
+      X-WP-Total: total matching records
+      X-WP-TotalPages: total pages at the requested per_page
+      Link: RFC 5988 rel="next" / rel="prev"
+    evidence: >-
+      Observed verbatim on GET /wp-json/wp/v2/posts?per_page=1 - X-WP-Total 245, X-WP-TotalPages
+      245, Link rel="next".
+  - surface: Greenbrier Tank Car Gauge Table API
+    style: none
+    detail: >-
+      No pagination of any kind. The range endpoints are bounded only by the car-number range the
+      caller supplies, and a wide range returns a very large body - GET
+      /api/car/GBRX/700000/-/724234/valid-car-number-list returned 982 KB and 20,049 records in one
+      response. Bound the range client-side.
+sparse_fieldsets:
+  - surface: WordPress / WooCommerce REST
+    supported: true
+    param: _fields
+    detail: >-
+      `_fields=id,link,title` trims the response to named properties. This is the single most
+      effective optimisation on this surface, because the default railcar and post payloads embed
+      fully rendered HTML.
+  - surface: Greenbrier Tank Car Gauge Table API
+    supported: false
+embedding:
+  surface: WordPress / WooCommerce REST
+  param: _embed
+  detail: >-
+    `_embed` inlines the linked resources named in each record's `_links` block (featured media,
+    taxonomy terms, author), saving a request per relationship.
+filtering:
+  surface: WordPress / WooCommerce REST
+  detail: >-
+    Railcars are filterable by every one of their four taxonomies (railcar_type, cargo_type,
+    fluid_capacity, cargo_capacity) and their `_exclude` counterparts. Store products are filterable
+    by category, tag, brand, attribute, stock status and price range, with attribute_relation
+    controlling AND/OR semantics. Every filter parameter, its type and its enum are carried in the
+    OpenAPI, copied from the server's own route descriptor.
+ordering:
+  surface: WordPress / WooCommerce REST
+  params:
+    order: asc | desc
+    orderby: date | id | include | title | slug | menu_order | relevance | modified
+versioning:
+  - surface: WordPress / WooCommerce REST
+    style: path-namespace
+    current: wp/v2, wc/store/v1
+    detail: >-
+      The version is a path namespace. https://www.gbrx.com/wp-json/ enumerates every namespace the
+      site serves; a client should read it rather than assume.
+  - surface: Greenbrier Tank Car Gauge Table API
+    style: none
+    detail: >-
+      No version segment, no version header, no dated release. /api/car/... is unversioned. A
+      breaking change would arrive without warning.
+error_envelope:
+  detail: See errors/greenbrier-cos-problem-types.yml. Not RFC 9457. Two distinct envelopes.
+  critical: >-
+    The tank-car surface answers HTTP 200 with a JSON `null` body for a car it does not hold. Status
+    code alone is not a success signal on that API.
+request_id_tracing:
+  supported: false
+  detail: >-
+    No X-Request-Id, no correlation header and no trace header was returned by any surface. There is
+    nothing for a caller to quote in a support request.
+rate_limit_signalling:
+  supported: false
+  detail: >-
+    No X-RateLimit-*, no RateLimit-*, no Retry-After on any observed response. See
+    rate-limits/greenbrier-cos-rate-limits.yml.
+caching:
+  - surface: WordPress / WooCommerce REST
+    detail: No ETag or Last-Modified on the observed responses; records carry `modified`/`modified_gmt` timestamps a client can poll on.
+  - surface: Greenbrier Tank Car Gauge Table API
+    detail: >-
+      Explicitly uncacheable - the server returns `Cache-Control: no-cache`, `Pragma: no-cache` and
+      `Expires: -1` on every response, including the static reporting-mark list.
+cors:
+  detail: >-
+    The WordPress surface returns Access-Control-Expose-Headers (X-WP-Total, X-WP-TotalPages, Link)
+    and Access-Control-Allow-Headers, so a browser client can read the pagination headers. The
+    tank-car surface returns no CORS headers at all and is server-to-server only from a browser's
+    point of view.
+idempotency:
+  coverage: na
+  scope: []
+  mechanism: none
+  detail: >-
+    Every catalogued Greenbrier API is read-only to an anonymous caller. There is no public mutating
+    surface, so there is nothing to replay-protect and nothing to double-fire. `na` rather than
+    `none`: this is the absence of a write surface, not the absence of a safeguard on one. The
+    WooCommerce cart/checkout routes and the WordPress write methods exist but are credentialed or
+    session-scoped and are not part of the catalogued contract; neither documents an
+    Idempotency-Key header.
+reversibility:
+  grade: na
+  detail: >-
+    No public write surface exists on any catalogued Greenbrier API, so there is no action for an
+    agent to take back. All five APIs are GET-only to an anonymous caller and every catalogued
+    operation is safe and repeatable. This is an honest `na`, not a zero.
+  write_surfaces: []
+dry_run_mode:
+  supported: na
+  detail: Read-only surface; there is nothing to rehearse.

@@ -1,0 +1,53 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  Searched npm (registry.npmjs.org search for "greenbrier" and "gbrx"), PyPI (greenbrier, gbrx,
+  railpulse), RubyGems, crates.io and the gbrx.com site for a first-party client library on
+  2026-09-12.
+package_count: 0
+official_package_count: 0
+note: >-
+  Greenbrier publishes no SDK, no client library and no package in any registry. Every registry
+  query returned zero results or HTTP 404; the npm search for both "greenbrier" and "gbrx" returned
+  an empty object list. No SDKs pointer is emitted for this provider because there is no SDK - the
+  absence is the finding, and calling these APIs means writing an HTTP client by hand against the
+  specs in openapi/.
+packages: []
+registries_checked:
+  - registry: npm
+    query: greenbrier
+    result: 0 results
+    version: null
+    published: null
+  - registry: npm
+    query: gbrx
+    result: 0 results
+    version: null
+    published: null
+  - registry: pypi
+    query: greenbrier
+    result: HTTP 404
+    version: null
+    published: null
+  - registry: pypi
+    query: gbrx
+    result: HTTP 404
+    version: null
+    published: null
+  - registry: rubygems
+    query: greenbrier
+    result: HTTP 404
+    version: null
+    published: null
+  - registry: crates.io
+    query: greenbrier
+    result: 0 results
+    version: null
+    published: null
+  - registry: github
+    query: github.com/greenbrier, github.com/gbrx
+    result: >-
+      Both logins exist but are empty personal accounts with 0 public repos, no name, no company and
+      no blog - neither is a Greenbrier organization. No GitHubOrganization pointer is emitted.
+    version: null
+    published: null
