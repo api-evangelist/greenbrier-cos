@@ -2,6 +2,13 @@
   "repo": "greenbrier-cos",
   "feeds": [
     {
+      "source": "https://www.linkedin.com/company/the-greenbrier-companies",
+      "feed_url": "https://www.linkedin.com/company/the-greenbrier-companies",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "https://www.gbrx.com/feed/",
       "feed_url": "https://www.gbrx.com/feed/",
       "title": "",
@@ -9,7 +16,7 @@
       "method": "feed"
     }
   ],
-  "fetched": "2026-09-06T19:17:18Z",
+  "fetched": "2026-09-13T13:00:00Z",
   "post_count": 16,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
