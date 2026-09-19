@@ -209,6 +209,8 @@ apis:
   humanURL: https://tankcar.gbrx.com/
   baseURL: https://tankcar.gbrx.com
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -307,6 +309,8 @@ apis:
   humanURL: https://tankcar.gbrx.com/
   baseURL: https://tankcar.gbrx.com
   tags:
+  - taxonomies
+  tags_raw:
   - Taxonomies
   properties:
   - type: OpenAPI
