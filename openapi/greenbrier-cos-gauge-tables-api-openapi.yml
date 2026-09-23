@@ -1,0 +1,174 @@
+openapi: 3.2.0
+info:
+  title: Greenbrier Tank Car Gauge Table Gauge Tables API
+  version: '1.0'
+  description: Public, unauthenticated JSON API behind the Greenbrier Gauge Table Directory at https://tankcar.gbrx.com/.
+  contact:
+    name: The Greenbrier Companies
+    url: https://www.gbrx.com/contact/
+  x-derived-from: The provider's own published AngularJS client (https://tankcar.gbrx.com/b/js/ngapp, saved verbatim at openapi/_original/greenbrier-cos-tankcar-ngapp-client.js) and its view template (https://tankcar.gbrx.com/app/js/ng/views/home.view.html, saved at openapi/_original/greenbrier-cos-tankcar-home-view.html), with every route, parameter and enum confirmed by live anonymous HTTP request on 2026-09-12.
+  x-derived-on: '2026-09-12'
+  x-api-evangelist-note: Third-party profile. Greenbrier publishes no OpenAPI for this service. Every path, parameter, enum and response field below was read from the provider's own shipped client code and then confirmed against a live response — nothing is invented. Write methods do not exist on this surface; it is read-only.
+servers:
+- url: https://tankcar.gbrx.com
+  description: Greenbrier Gauge Table Directory
+tags:
+- name: Gauge Tables
+  description: Innage/outage capacity curves for a specific tank car.
+paths:
+  /api/car/{mark}/{carNumber}/gauge-table:
+    get:
+      operationId: getGaugeTable
+      summary: Get a gauge table for one car
+      description: Retrieve the certified gauge table for a single tank car identified by reporting mark and car number. The response carries the car's tare weight in pounds, the shell full capacity in gallons, the certification date of the table, and the full capacity curve in quarter-inch height increments.
+      tags:
+      - Gauge Tables
+      parameters:
+      - name: mark
+        in: path
+        required: true
+        description: The railcar reporting mark, as returned by listReportingMarks.
+        schema:
+          type: string
+          examples:
+          - GBRX
+      - name: carNumber
+        in: path
+        required: true
+        description: The car number within that reporting mark.
+        schema:
+          type: integer
+          examples:
+          - 700000
+      responses:
+        '200':
+          description: The gauge table for that car. The server answers 200 with a JSON `null` body when the mark/number pair is not held — it does not return 404 for an unknown car.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GaugeTable'
+  /api/car/{mark}/{start}/-/{end}/gauge-tables:
+    get:
+      operationId: listGaugeTables
+      summary: List gauge tables for a car-number range
+      description: Retrieve every gauge table Greenbrier holds for a contiguous car-number range under one reporting mark. The literal `-` path segment is the range separator used by the provider's own client.
+      tags:
+      - Gauge Tables
+      parameters:
+      - name: mark
+        in: path
+        required: true
+        description: The railcar reporting mark.
+        schema:
+          type: string
+      - name: start
+        in: path
+        required: true
+        description: First car number in the range, inclusive.
+        schema:
+          type: integer
+      - name: end
+        in: path
+        required: true
+        description: Last car number in the range, inclusive.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: An array of gauge tables, one per car held in the range.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GaugeTable'
+  /api/car/{mark}/{start}/-/{end}/valid-car-number-list:
+    get:
+      operationId: listValidCarNumbers
+      summary: List car numbers held in a range
+      description: Retrieve the car numbers within a range under one reporting mark for which Greenbrier actually holds a gauge table. Verified live at 20,049 records for GBRX 700000-724234 on 2026-09-12. An empty array is the correct, expected answer for a range Greenbrier does not cover.
+      tags:
+      - Gauge Tables
+      parameters:
+      - name: mark
+        in: path
+        required: true
+        description: The railcar reporting mark.
+        schema:
+          type: string
+      - name: start
+        in: path
+        required: true
+        description: First car number in the range, inclusive.
+        schema:
+          type: integer
+      - name: end
+        in: path
+        required: true
+        description: Last car number in the range, inclusive.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: An array of held car numbers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarNumber'
+components:
+  schemas:
+    CarNumber:
+      type: object
+      description: A car number for which a gauge table is held.
+      properties:
+        number:
+          type: integer
+          description: Numeric car number.
+        carNumberForDisplay:
+          type: string
+          description: The car number as the provider renders it.
+    Capacity:
+      type: object
+      description: One point on the capacity curve.
+      properties:
+        height:
+          type: number
+          description: Measured height in inches from the datum.
+        innage:
+          type: number
+          description: Volume of product below that height.
+        outage:
+          type: number
+          description: Volume of empty space above that height.
+    GaugeTable:
+      type: object
+      description: A certified tank-car gauge table. Field names and types read from a live response for GBRX 700000 on 2026-09-12.
+      properties:
+        carNumber:
+          type: string
+          description: Reporting mark and car number, space separated.
+          examples:
+          - GBRX 700000
+        tareWeight:
+          type: number
+          description: Empty weight of the car in pounds.
+          examples:
+          - 69600.0
+        shellFillCapacity:
+          type: number
+          description: Shell full capacity in gallons.
+          examples:
+          - 30100.0
+        gaugeTableDate:
+          type: string
+          format: date-time
+          description: Date the gauge table was certified.
+          examples:
+          - '2012-03-22T00:00:00'
+        capacities:
+          type: array
+          description: The capacity curve, one entry per quarter-inch of height.
+          items:
+            $ref: '#/components/schemas/Capacity'

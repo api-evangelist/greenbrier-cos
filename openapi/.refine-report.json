@@ -1,0 +1,49 @@
+{
+  "provider": "greenbrier-cos",
+  "sources": [
+    "greenbrier-cos-catalog-api-openapi.yml",
+    "greenbrier-cos-discovery-api-openapi.yml",
+    "greenbrier-cos-export-api-openapi.yml",
+    "greenbrier-cos-gauge-tables-api-openapi.yml",
+    "greenbrier-cos-pages-api-openapi.yml",
+    "greenbrier-cos-posts-api-openapi.yml",
+    "greenbrier-cos-products-api-openapi.yml",
+    "greenbrier-cos-railcars-api-openapi.yml",
+    "greenbrier-cos-reporting-marks-api-openapi.yml",
+    "greenbrier-cos-search-api-openapi.yml",
+    "greenbrier-cos-taxonomies-api-openapi.yml"
+  ],
+  "outputs": [
+    "greenbrier-cos-catalog-api-openapi.yml",
+    "greenbrier-cos-discovery-api-openapi.yml",
+    "greenbrier-cos-export-api-openapi.yml",
+    "greenbrier-cos-gauge-tables-api-openapi.yml",
+    "greenbrier-cos-pages-api-openapi.yml",
+    "greenbrier-cos-posts-api-openapi.yml",
+    "greenbrier-cos-products-api-openapi.yml",
+    "greenbrier-cos-railcars-api-openapi.yml",
+    "greenbrier-cos-reporting-marks-api-openapi.yml",
+    "greenbrier-cos-search-api-openapi.yml",
+    "greenbrier-cos-taxonomies-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [
+    "greenbrier-cos-catalog-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /wc/store/v1/products/attributes get, /wc/store/v1/products/attributes/{attribute_id}/terms get, /wc/store/v1/products/categories get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-discovery-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /oembed/1.0/embed get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-export-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /export/{fileType} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-gauge-tables-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /api/car/{mark}/{carNumber}/gauge-table get, /api/car/{mark}/{start}/-/{end}/gauge-tables get, /api/car/{mark}/{start}/-/{end}/valid-car-number-list get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-pages-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /wp/v2/pages get, /wp/v2/pages/{id} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-posts-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /wp/v2/posts get, /wp/v2/posts/{id} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-products-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /wc/store/v1/products get, /wc/store/v1/products/{id} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-railcars-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /wp/v2/railcars get, /wp/v2/railcars/{id} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-reporting-marks-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /api/car/marks get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-search-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /wp/v2/search get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "greenbrier-cos-taxonomies-api-openapi.yml: previously refined output kept for 10 operation(s) no archived document covers (e.g. /wp/v2/cargo_capacity get, /wp/v2/cargo_type get, /wp/v2/cargo_type/{id} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

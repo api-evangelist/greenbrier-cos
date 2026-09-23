@@ -1,0 +1,87 @@
+openapi: 3.2.0
+info:
+  title: Greenbrier Tank Car Gauge Table Export API
+  version: '1.0'
+  description: Public, unauthenticated JSON API behind the Greenbrier Gauge Table Directory at https://tankcar.gbrx.com/.
+  contact:
+    name: The Greenbrier Companies
+    url: https://www.gbrx.com/contact/
+  x-derived-from: The provider's own published AngularJS client (https://tankcar.gbrx.com/b/js/ngapp, saved verbatim at openapi/_original/greenbrier-cos-tankcar-ngapp-client.js) and its view template (https://tankcar.gbrx.com/app/js/ng/views/home.view.html, saved at openapi/_original/greenbrier-cos-tankcar-home-view.html), with every route, parameter and enum confirmed by live anonymous HTTP request on 2026-09-12.
+  x-derived-on: '2026-09-12'
+  x-api-evangelist-note: Third-party profile. Greenbrier publishes no OpenAPI for this service. Every path, parameter, enum and response field below was read from the provider's own shipped client code and then confirmed against a live response — nothing is invented. Write methods do not exist on this surface; it is read-only.
+servers:
+- url: https://tankcar.gbrx.com
+  description: Greenbrier Gauge Table Directory
+tags:
+- name: Export
+  description: Downloadable Pdf, Csv and Txt renderings of a gauge table.
+paths:
+  /export/{fileType}:
+    get:
+      operationId: exportGaugeTable
+      summary: Export a gauge table
+      description: Render the gauge tables for a car-number range as a downloadable document. The three file types, two capacity types and two unit types below are the exact values offered by the provider's own export form.
+      tags:
+      - Export
+      parameters:
+      - name: fileType
+        in: path
+        required: true
+        description: Output format.
+        schema:
+          type: string
+          enum:
+          - Pdf
+          - Csv
+          - Txt
+      - name: capacityType
+        in: query
+        required: true
+        description: Innage measures the liquid column from the bottom of the shell; Outage measures the empty space from the top.
+        schema:
+          type: string
+          enum:
+          - Innage
+          - Outage
+      - name: unitType
+        in: query
+        required: true
+        description: Volume unit of the exported capacities.
+        schema:
+          type: string
+          enum:
+          - Gallons
+          - Liters
+      - name: mark
+        in: query
+        required: true
+        description: The railcar reporting mark.
+        schema:
+          type: string
+      - name: start
+        in: query
+        required: true
+        description: First car number in the range, inclusive.
+        schema:
+          type: integer
+      - name: end
+        in: query
+        required: true
+        description: Last car number in the range, inclusive.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The rendered gauge table document.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            text/csv:
+              schema:
+                type: string
+                description: Header row `"CAR NUMBER","DISTANCE","INNAGE"` followed by one row per quarter-inch increment.
+            text/plain:
+              schema:
+                type: string

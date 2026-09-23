@@ -1,7 +1,9 @@
 ---
 title: Greenbrier Cos. Inc <GBX.N> Q4 results
 url: https://www.reuters.com/article/legal/government/greenbrier-cos-inc-gbxn-q4-results-idUSWNAS0537/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Greenbrier Cos." press release artificial intelligence'
 position: 4
 source: serpapi-google

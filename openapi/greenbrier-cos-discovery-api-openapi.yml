@@ -1,0 +1,98 @@
+openapi: 3.2.0
+info:
+  title: Greenbrier Site Content Discovery API
+  version: wp/v2
+  description: Public, unauthenticated read access to the static marketing, services, investor and policy pages of www.gbrx.com, plus the cross-content search endpoint and the oEmbed discovery endpoint. Verified live on 2026-09-12 at 51 published pages and 191 searchable objects spanning posts, pages and railcars. The search endpoint returns lightweight id / title / url / type / subtype records and is the cheapest way for a machine to enumerate what Greenbrier publishes.
+  contact:
+    name: The Greenbrier Companies
+    url: https://www.gbrx.com/contact/
+  x-derived-from: https://www.gbrx.com/wp-json/ (route-index document, saved verbatim at openapi/_original/greenbrier-cos-wp-json-route-index.json) + live anonymous GET samples
+  x-derived-on: '2026-09-12'
+  x-api-evangelist-note: 'Third-party profile. The Greenbrier Companies publishes no developer program; this documents the anonymously readable WordPress REST surface behind www.gbrx.com. Every path, parameter, type, default and enum below was read from the server''s own published route descriptor on 2026-09-12 — nothing is invented. Only the GET methods are documented: write methods exist on the same routes but require WordPress application-password credentials and are not part of the public surface.'
+servers:
+- url: https://www.gbrx.com/wp-json
+  description: Greenbrier WordPress REST API
+tags:
+- name: Discovery
+  description: oEmbed discovery for gbrx.com URLs.
+paths:
+  /oembed/1.0/embed:
+    get:
+      operationId: getOembed
+      summary: Get oEmbed data
+      description: Retrieve the oEmbed representation of a gbrx.com URL — provider name, author, title and embed HTML.
+      tags:
+      - Discovery
+      parameters:
+      - name: format
+        in: query
+        schema:
+          type: string
+          default: json
+      - name: maxwidth
+        in: query
+        schema:
+          type: string
+          default: 600
+      - name: url
+        in: query
+        description: The URL of the resource for which to fetch oEmbed data.
+        required: true
+        schema:
+          type: string
+          format: uri
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Oembed'
+        '400':
+          description: Invalid parameter (rest_invalid_param).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No route or resource matched (rest_no_route / rest_post_invalid_id).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Oembed:
+      type: object
+      properties:
+        version:
+          type: string
+        provider_name:
+          type: string
+        provider_url:
+          type: string
+          format: uri
+        title:
+          type: string
+        type:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        html:
+          type: string
+      description: Shape observed on a live anonymous GET of the Oembed collection on 2026-09-12.
+    Error:
+      type: object
+      description: WordPress REST error envelope (WP_Error serialized).
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            status:
+              type: integer

@@ -1,7 +1,9 @@
 ---
 title: Stock Analysis, Ratings & Investment Research
 url: https://financhill.com/compare/industry/na/aiq-vs-gbx
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Greenbrier Cos." press release artificial intelligence'
 position: 5
 source: serpapi-google

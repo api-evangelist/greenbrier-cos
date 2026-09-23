@@ -1,7 +1,9 @@
 ---
 title: The Greenbrier Cos. Inc. Upgraded To 'B+' On Impr
 url: https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/1044886
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Greenbrier Cos." press release artificial intelligence'
 position: 2
 source: serpapi-google

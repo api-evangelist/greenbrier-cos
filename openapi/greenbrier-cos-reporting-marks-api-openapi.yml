@@ -1,0 +1,41 @@
+openapi: 3.2.0
+info:
+  title: Greenbrier Tank Car Gauge Table Reporting Marks API
+  version: '1.0'
+  description: Public, unauthenticated JSON API behind the Greenbrier Gauge Table Directory at https://tankcar.gbrx.com/.
+  contact:
+    name: The Greenbrier Companies
+    url: https://www.gbrx.com/contact/
+  x-derived-from: The provider's own published AngularJS client (https://tankcar.gbrx.com/b/js/ngapp, saved verbatim at openapi/_original/greenbrier-cos-tankcar-ngapp-client.js) and its view template (https://tankcar.gbrx.com/app/js/ng/views/home.view.html, saved at openapi/_original/greenbrier-cos-tankcar-home-view.html), with every route, parameter and enum confirmed by live anonymous HTTP request on 2026-09-12.
+  x-derived-on: '2026-09-12'
+  x-api-evangelist-note: Third-party profile. Greenbrier publishes no OpenAPI for this service. Every path, parameter, enum and response field below was read from the provider's own shipped client code and then confirmed against a live response — nothing is invented. Write methods do not exist on this surface; it is read-only.
+servers:
+- url: https://tankcar.gbrx.com
+  description: Greenbrier Gauge Table Directory
+tags:
+- name: Reporting Marks
+  description: The railcar reporting marks for which Greenbrier holds gauge tables.
+paths:
+  /api/car/marks:
+    get:
+      operationId: listReportingMarks
+      summary: List reporting marks
+      description: Retrieve every railcar reporting mark for which Greenbrier serves a gauge table. Verified live at 144 marks on 2026-09-12, including GBRX, GATX, UTLX, NATX, ACFX, SHPX and TILX-era Greenbrier-built fleets.
+      tags:
+      - Reporting Marks
+      responses:
+        '200':
+          description: An array of reporting marks, ordered alphabetically.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: A railcar reporting mark (AAR alphabetic code).
+                examples:
+                - - ACFX
+                  - GATX
+                  - GBRX
+                  - NATX
+                  - UTLX
