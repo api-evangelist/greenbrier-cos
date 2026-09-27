@@ -59,54 +59,6 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/greenbrier-cos/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
-- aid: greenbrier-cos:greenbrier-cos-catalog-api
-  name: Greenbrier Companies Catalog API
-  description: Product categories, tags, brands and attribute vocabularies.
-  humanURL: https://tankcar.gbrx.com/
-  baseURL: https://tankcar.gbrx.com
-  tags:
-  - Catalog
-  properties:
-  - type: OpenAPI
-    url: openapi/greenbrier-cos-catalog-api-openapi.yml
-  - type: Authentication
-    url: authentication/greenbrier-cos-authentication.yml
-  - type: ErrorCatalog
-    url: errors/greenbrier-cos-problem-types.yml
-  - type: Conventions
-    url: conventions/greenbrier-cos-conventions.yml
-  - type: DataModel
-    url: data-model/greenbrier-cos-data-model.yml
-  - type: Conformance
-    url: conformance/greenbrier-cos-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/greenbrier-cos-lifecycle.yml
-  - type: RateLimits
-    url: rate-limits/greenbrier-cos-rate-limits.yml
-- aid: greenbrier-cos:greenbrier-cos-discovery-api
-  name: Greenbrier Companies Discovery API
-  description: oEmbed discovery for gbrx.com URLs.
-  humanURL: https://tankcar.gbrx.com/
-  baseURL: https://tankcar.gbrx.com
-  tags:
-  - Discovery
-  properties:
-  - type: OpenAPI
-    url: openapi/greenbrier-cos-discovery-api-openapi.yml
-  - type: Authentication
-    url: authentication/greenbrier-cos-authentication.yml
-  - type: ErrorCatalog
-    url: errors/greenbrier-cos-problem-types.yml
-  - type: Conventions
-    url: conventions/greenbrier-cos-conventions.yml
-  - type: DataModel
-    url: data-model/greenbrier-cos-data-model.yml
-  - type: Conformance
-    url: conformance/greenbrier-cos-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/greenbrier-cos-lifecycle.yml
-  - type: RateLimits
-    url: rate-limits/greenbrier-cos-rate-limits.yml
 - aid: greenbrier-cos:greenbrier-cos-export-api
   name: Greenbrier Companies Export API
   description: Downloadable Pdf, Csv and Txt renderings of a gauge table.
@@ -155,106 +107,6 @@ apis:
     url: lifecycle/greenbrier-cos-lifecycle.yml
   - type: RateLimits
     url: rate-limits/greenbrier-cos-rate-limits.yml
-- aid: greenbrier-cos:greenbrier-cos-pages-api
-  name: Greenbrier Companies Pages API
-  description: Static site pages — services, manufacturing, leasing, investors, careers, policies.
-  humanURL: https://tankcar.gbrx.com/
-  baseURL: https://tankcar.gbrx.com
-  tags:
-  - Pages
-  properties:
-  - type: OpenAPI
-    url: openapi/greenbrier-cos-pages-api-openapi.yml
-  - type: Authentication
-    url: authentication/greenbrier-cos-authentication.yml
-  - type: ErrorCatalog
-    url: errors/greenbrier-cos-problem-types.yml
-  - type: Conventions
-    url: conventions/greenbrier-cos-conventions.yml
-  - type: DataModel
-    url: data-model/greenbrier-cos-data-model.yml
-  - type: Conformance
-    url: conformance/greenbrier-cos-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/greenbrier-cos-lifecycle.yml
-  - type: RateLimits
-    url: rate-limits/greenbrier-cos-rate-limits.yml
-- aid: greenbrier-cos:greenbrier-cos-posts-api
-  name: Greenbrier Companies Posts API
-  description: Greenbrier press releases, announcements and Perspectives & Updates articles.
-  humanURL: https://tankcar.gbrx.com/
-  baseURL: https://tankcar.gbrx.com
-  tags:
-  - Posts
-  properties:
-  - type: OpenAPI
-    url: openapi/greenbrier-cos-posts-api-openapi.yml
-  - type: Authentication
-    url: authentication/greenbrier-cos-authentication.yml
-  - type: ErrorCatalog
-    url: errors/greenbrier-cos-problem-types.yml
-  - type: Conventions
-    url: conventions/greenbrier-cos-conventions.yml
-  - type: DataModel
-    url: data-model/greenbrier-cos-data-model.yml
-  - type: Conformance
-    url: conformance/greenbrier-cos-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/greenbrier-cos-lifecycle.yml
-  - type: RateLimits
-    url: rate-limits/greenbrier-cos-rate-limits.yml
-- aid: greenbrier-cos:greenbrier-cos-products-api
-  name: Greenbrier Companies Products API
-  description: Aftermarket railcar replacement parts.
-  humanURL: https://tankcar.gbrx.com/
-  baseURL: https://tankcar.gbrx.com
-  tags:
-  - Product
-  tags_raw:
-  - Products
-  properties:
-  - type: OpenAPI
-    url: openapi/greenbrier-cos-products-api-openapi.yml
-  - type: Authentication
-    url: authentication/greenbrier-cos-authentication.yml
-  - type: ErrorCatalog
-    url: errors/greenbrier-cos-problem-types.yml
-  - type: Conventions
-    url: conventions/greenbrier-cos-conventions.yml
-  - type: DataModel
-    url: data-model/greenbrier-cos-data-model.yml
-  - type: Conformance
-    url: conformance/greenbrier-cos-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/greenbrier-cos-lifecycle.yml
-  - type: RateLimits
-    url: rate-limits/greenbrier-cos-rate-limits.yml
-- aid: greenbrier-cos:greenbrier-cos-railcars-api
-  name: Greenbrier Companies Railcars API
-  description: >-
-    Greenbrier railcar models — covered hoppers, tank cars, gondolas, boxcars, intermodal and automotive
-    equipment.
-  humanURL: https://tankcar.gbrx.com/
-  baseURL: https://tankcar.gbrx.com
-  tags:
-  - Railcars
-  properties:
-  - type: OpenAPI
-    url: openapi/greenbrier-cos-railcars-api-openapi.yml
-  - type: Authentication
-    url: authentication/greenbrier-cos-authentication.yml
-  - type: ErrorCatalog
-    url: errors/greenbrier-cos-problem-types.yml
-  - type: Conventions
-    url: conventions/greenbrier-cos-conventions.yml
-  - type: DataModel
-    url: data-model/greenbrier-cos-data-model.yml
-  - type: Conformance
-    url: conformance/greenbrier-cos-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/greenbrier-cos-lifecycle.yml
-  - type: RateLimits
-    url: rate-limits/greenbrier-cos-rate-limits.yml
 - aid: greenbrier-cos:greenbrier-cos-reporting-marks-api
   name: Greenbrier Companies Reporting Marks API
   description: The railcar reporting marks for which Greenbrier holds gauge tables.
@@ -279,56 +131,21 @@ apis:
     url: lifecycle/greenbrier-cos-lifecycle.yml
   - type: RateLimits
     url: rate-limits/greenbrier-cos-rate-limits.yml
-- aid: greenbrier-cos:greenbrier-cos-search-api
-  name: Greenbrier Companies Search API
-  description: Cross-content search over posts, pages and railcars.
-  humanURL: https://tankcar.gbrx.com/
-  baseURL: https://tankcar.gbrx.com
+- aid: greenbrier-cos:gbrx-com-website-wordpress-rest
+  name: Greenbrier Companies Website (WordPress REST)
+  description: >-
+    The public WordPress REST API (wp-json) of the Greenbrier Companies website at www.gbrx.com: the route
+    index of the site's content management system, catalogued as one site surface rather than as separate
+    APIs.
+  baseURL: https://www.gbrx.com/wp-json
   tags:
-  - Search
+  - WordPress
+  x-surface: platform-generated
+  x-platform: wordpress
+  x-platform-surface: rest
   properties:
-  - type: OpenAPI
-    url: openapi/greenbrier-cos-search-api-openapi.yml
-  - type: Authentication
-    url: authentication/greenbrier-cos-authentication.yml
-  - type: ErrorCatalog
-    url: errors/greenbrier-cos-problem-types.yml
-  - type: Conventions
-    url: conventions/greenbrier-cos-conventions.yml
-  - type: DataModel
-    url: data-model/greenbrier-cos-data-model.yml
-  - type: Conformance
-    url: conformance/greenbrier-cos-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/greenbrier-cos-lifecycle.yml
-  - type: RateLimits
-    url: rate-limits/greenbrier-cos-rate-limits.yml
-- aid: greenbrier-cos:greenbrier-cos-taxonomies-api
-  name: Greenbrier Companies Taxonomies API
-  description: Post categories and tags.
-  humanURL: https://tankcar.gbrx.com/
-  baseURL: https://tankcar.gbrx.com
-  tags:
-  - taxonomies
-  tags_raw:
-  - Taxonomies
-  properties:
-  - type: OpenAPI
-    url: openapi/greenbrier-cos-taxonomies-api-openapi.yml
-  - type: Authentication
-    url: authentication/greenbrier-cos-authentication.yml
-  - type: ErrorCatalog
-    url: errors/greenbrier-cos-problem-types.yml
-  - type: Conventions
-    url: conventions/greenbrier-cos-conventions.yml
-  - type: DataModel
-    url: data-model/greenbrier-cos-data-model.yml
-  - type: Conformance
-    url: conformance/greenbrier-cos-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/greenbrier-cos-lifecycle.yml
-  - type: RateLimits
-    url: rate-limits/greenbrier-cos-rate-limits.yml
+  - type: Documentation
+    url: https://www.gbrx.com/wp-json
 common:
   - type: Overlay
     url: overlays/greenbrier-cos-gauge-table-api-overlay.yaml

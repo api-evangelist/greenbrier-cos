@@ -43,7 +43,7 @@
   ],
   "notes": [
     "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "apis.yml register: already-registered"
+    "apis.yml register: written (+1 apis, 4 total)"
   ],
   "skipped": []
 }

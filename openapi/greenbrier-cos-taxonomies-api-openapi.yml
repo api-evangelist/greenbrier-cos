@@ -1019,56 +1019,6 @@ components:
           properties:
             status:
               type: integer
-    TaxonomyTerm_2:
-      type: object
-      properties:
-        id:
-          type: integer
-        count:
-          type: integer
-        description:
-          type: string
-        link:
-          type: string
-          format: uri
-        name:
-          type: string
-        slug:
-          type: string
-        taxonomy:
-          type: string
-        meta:
-          type: array
-          items:
-            type: string
-        acf:
-          type: array
-          items:
-            type: string
-        _links:
-          type: object
-          properties:
-            self:
-              type: array
-              items:
-                type: string
-            collection:
-              type: array
-              items:
-                type: string
-            about:
-              type: array
-              items:
-                type: string
-            wp:post_type:
-              type: array
-              items:
-                type: string
-            curies:
-              type: array
-              items:
-                type: string
-      description: Shape observed on a live anonymous GET of the TaxonomyTerm collection on 2026-09-12.
     TaxonomyTerm:
       type: object
       properties:
@@ -1113,6 +1063,56 @@ components:
               items:
                 type: string
             up:
+              type: array
+              items:
+                type: string
+            wp:post_type:
+              type: array
+              items:
+                type: string
+            curies:
+              type: array
+              items:
+                type: string
+      description: Shape observed on a live anonymous GET of the TaxonomyTerm collection on 2026-09-12.
+    TaxonomyTerm_2:
+      type: object
+      properties:
+        id:
+          type: integer
+        count:
+          type: integer
+        description:
+          type: string
+        link:
+          type: string
+          format: uri
+        name:
+          type: string
+        slug:
+          type: string
+        taxonomy:
+          type: string
+        meta:
+          type: array
+          items:
+            type: string
+        acf:
+          type: array
+          items:
+            type: string
+        _links:
+          type: object
+          properties:
+            self:
+              type: array
+              items:
+                type: string
+            collection:
+              type: array
+              items:
+                type: string
+            about:
               type: array
               items:
                 type: string
