@@ -343,19 +343,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: WordPress REST error envelope (WP_Error serialized).
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
     Post:
       type: object
       properties:
@@ -492,3 +479,16 @@ components:
               items:
                 type: string
       description: Shape observed on a live anonymous GET of the Post collection on 2026-09-12.
+    Error:
+      type: object
+      description: WordPress REST error envelope (WP_Error serialized).
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            status:
+              type: integer

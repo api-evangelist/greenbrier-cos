@@ -119,16 +119,6 @@ paths:
                   $ref: '#/components/schemas/CarNumber'
 components:
   schemas:
-    CarNumber:
-      type: object
-      description: A car number for which a gauge table is held.
-      properties:
-        number:
-          type: integer
-          description: Numeric car number.
-        carNumberForDisplay:
-          type: string
-          description: The car number as the provider renders it.
     Capacity:
       type: object
       description: One point on the capacity curve.
@@ -142,6 +132,16 @@ components:
         outage:
           type: number
           description: Volume of empty space above that height.
+    CarNumber:
+      type: object
+      description: A car number for which a gauge table is held.
+      properties:
+        number:
+          type: integer
+          description: Numeric car number.
+        carNumberForDisplay:
+          type: string
+          description: The car number as the provider renders it.
     GaugeTable:
       type: object
       description: A certified tank-car gauge table. Field names and types read from a live response for GBRX 700000 on 2026-09-12.
