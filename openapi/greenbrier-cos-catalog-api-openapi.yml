@@ -667,6 +667,24 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    StoreProductAttribute:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        taxonomy:
+          type: string
+        type:
+          type: string
+        order:
+          type: string
+        has_archives:
+          type: boolean
+        count:
+          type: integer
+      description: Shape observed on a live anonymous GET of the StoreProductAttribute collection on 2026-09-12.
     StoreCollectionData:
       type: object
       properties:
@@ -713,24 +731,6 @@ components:
           properties:
             status:
               type: integer
-    StoreProductAttribute:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        taxonomy:
-          type: string
-        type:
-          type: string
-        order:
-          type: string
-        has_archives:
-          type: boolean
-        count:
-          type: integer
-      description: Shape observed on a live anonymous GET of the StoreProductAttribute collection on 2026-09-12.
     StoreProductCategory:
       type: object
       properties:
