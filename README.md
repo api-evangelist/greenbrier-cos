@@ -1,4 +1,4 @@
-# Greenbrier Companies (greenbrier-cos)
+# Greenbrier Companies
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,35 +64,120 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The Greenbrier Companies is a leading international supplier of equipment and services to global freight transportation markets, designing, building, and marketing freight railcars in North America, Europe, and South America. Greenbrier also offers railcar leasing, repair, and digital fleet management services such as RailPulse.
+The Greenbrier Companies is a leading international supplier of equipment and services to global freight transportation markets, designing, building and marketing freight railcars in North America, Europe and South America from its headquarters in Lake Oswego, Oregon. Greenbrier also operates railcar leasing and fleet management, wheel services, maintenance and repair, marine barge manufacturing in Portland, and participates in the RailPulse railcar-telematics joint venture. Greenbrier publishes no developer program, no API portal and no SDKs, and sells no API product. It does, however, operate several real, anonymously callable HTTP surfaces on its own hosts: a bespoke JSON API serving certified tank-car gauge tables at tankcar.gbrx.com, and the WordPress and WooCommerce Store REST APIs behind www.gbrx.com, which expose the railcar product catalog, the aftermarket parts catalog, the press room and site search. Those are catalogued here for discovery; they are not a product Greenbrier markets.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/greenbrier-cos/refs/heads/main/apis.yml)
+**Areas:** Rail · Railcars · Freight · Transportation · Manufacturing · Leasing · Logistics · Tank Cars · Gauge Tables · Aftermarket Parts · Content · Commerce
 
-## Scope
+## Greenbrier Companies on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Greenbrier Companies is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/greenbrier-cos/](https://apis.io/providers/greenbrier-cos/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (4)
 
- - Rail, Freight, Transportation, Manufacturing, Leasing
+- [Greenbrier Companies Export API](https://apis.io/apis/greenbrier-cos/greenbrier-cos-export-api/) — Downloadable Pdf, Csv and Txt renderings of a gauge table.
+- [Greenbrier Companies Gauge Tables API](https://apis.io/apis/greenbrier-cos/greenbrier-cos-gauge-tables-api/) — Innage/outage capacity curves for a specific tank car.
+- [Greenbrier Companies Reporting Marks API](https://apis.io/apis/greenbrier-cos/greenbrier-cos-reporting-marks-api/) — The railcar reporting marks for which Greenbrier holds gauge tables.
+- [Greenbrier Companies Website (WordPress REST)](https://apis.io/apis/greenbrier-cos/gbrx-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Greenbrier Companies website at www.gbrx.com: the route index of the site's content management system,…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-24
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-No public APIs have been documented. Greenbrier offers digital products such as RailPulse and a Virtual Sample Railcar but does not publish a developer portal at this time.
+Model Context Protocol servers that expose the API to agents.
 
-## Common Properties
+- [greenbrier-cos-mcp.yml](https://apis.io/servers/greenbrier-cos/greenbrier-cos-mcp-yml/)
+
+#### Overlays (5)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Greenbrier Cos Gauge Table Api Overlay](https://apis.io/overlays/greenbrier-cos/greenbrier-cos-gauge-table-api-overlay/)
+- [Greenbrier Cos Parts Store Api Overlay](https://apis.io/overlays/greenbrier-cos/greenbrier-cos-parts-store-api-overlay/)
+- [Greenbrier Cos Press Room Api Overlay](https://apis.io/overlays/greenbrier-cos/greenbrier-cos-press-room-api-overlay/)
+- [Greenbrier Cos Railcar Catalog Api Overlay](https://apis.io/overlays/greenbrier-cos/greenbrier-cos-railcar-catalog-api-overlay/)
+- [Greenbrier Cos Site Content Api Overlay](https://apis.io/overlays/greenbrier-cos/greenbrier-cos-site-content-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Greenbrier Cos Authentication](https://apis.io/security/greenbrier-cos/greenbrier-cos-authentication/)
+- [Greenbrier Cos Domain Security](https://apis.io/security/greenbrier-cos/greenbrier-cos-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Greenbrier Cos Plans Pricing](https://apis.io/plans/greenbrier-cos/greenbrier-cos-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Greenbrier Cos Rate Limits](https://apis.io/rate-limits/greenbrier-cos/greenbrier-cos-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.gbrx.com)
+- [Support](https://www.gbrx.com/contact-us/)
+- [Blog](https://www.gbrx.com/feed/)
+- [Compliance](https://www.gbrx.com/certifications/)
+- [Terms of service](https://www.gbrx.com/legal/)
+- [Privacy policy](https://www.gbrx.com/privacy-policy/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 25.8** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 12.6 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 28.9 |
+
+**Agent readiness 40.2** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | na |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+
+**Regulatory alignment 29.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/greenbrier-cos/](https://apis.io/providers/greenbrier-cos/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Greenbrier Companies: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/greenbrier-cos/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
